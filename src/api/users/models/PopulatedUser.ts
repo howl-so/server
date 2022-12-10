@@ -1,6 +1,7 @@
 import { NotFound } from "../../../errors";
 import { UserModel } from "../../../models";
 import Howler from "../../howlers/models/Howler";
+import { DocumentType } from "@typegoose/typegoose";
 
 export interface PopulatedUser {
   _id: string;
@@ -33,6 +34,9 @@ export class RealPopulatedUser implements PopulatedUser {
   public async populate(): Promise<PopulatedUser> {
     const user = await UserModel.findById(this._id).populate("howlerIds").exec();
     if (!user) throw new NotFound("User");
+
+    this.howlers = user.howlerIds as unknown as DocumentType<Howler>[];
+
     return user;
   }
 }
