@@ -19,8 +19,8 @@ export default class Howler {
   ownerIds!: string[];
 
   public async populate(this: DocumentType<Howler>): Promise<PopulatedHowler> {
-    const user = new RealPopulatedHowler(this._id, this.name, this.username, this.avatarUrl);
-    await user.populate();
-    return user;
+    const howler = new RealPopulatedHowler(this._id, this.name, this.username, this.avatarUrl);
+    await howler.populate();
+    return howler;
   }
 }

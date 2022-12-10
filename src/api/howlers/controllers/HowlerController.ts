@@ -28,11 +28,12 @@ export class HowlerController extends Controller {
   @Get()
   async getPopulatedHowlers(): Promise<PopulatedHowler[] | null> {
     const howlers = await new RealHowlerServices().getHowlers();
+    const populatedHowlers: PopulatedHowler[] = [];
 
     for (const howler of howlers) {
-      await howler.populate();
+      populatedHowlers.push(await howler.populate());
     }
 
-    return howlers;
+    return populatedHowlers;
   }
 }
