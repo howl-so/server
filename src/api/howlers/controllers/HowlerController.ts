@@ -15,12 +15,24 @@ export class HowlerController extends Controller {
     return howler;
   }
 
-  /** Get populated howler by ID */
+  /** Get and populate howler by ID */
   @Get("{howlerId}/populated")
   async getPopulatedHowler(@Path() howlerId: string): Promise<PopulatedHowler | null> {
     if (!howlerId) throw new Error();
     const howler = await new RealHowlerServices().getHowler(howlerId);
     if (!howler) throw new Error();
     return await howler.populate();
+  }
+
+  /** Get and populate all howlers */
+  @Get()
+  async getPopulatedHowlers(): Promise<PopulatedHowler[] | null> {
+    const howlers = await new RealHowlerServices().getHowlers();
+
+    for (const howler of howlers) {
+      await howler.populate();
+    }
+
+    return howlers;
   }
 }
