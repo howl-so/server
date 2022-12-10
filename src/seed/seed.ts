@@ -20,5 +20,5 @@ export default async function seed() {
     }
   }
 
-  console.log("🌱 Howl seeded");
+  console.log("🚀 Database seeded");
 }

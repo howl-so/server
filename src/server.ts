@@ -1,19 +1,26 @@
 import { connect } from "mongoose";
 import "reflect-metadata";
 import app from "./app";
-import { MONGODB_URI, SEED } from "./util/secrets";
+import { DEV, MONGODB_URI, NODE_ENV, PORT, SEED } from "./util/secrets";
 import seed from "./seed/seed";
+import graph from "./graph";
 
 const main = async () => {
-  const port = process.env.PORT || 5000;
-
   await connect(MONGODB_URI!);
 
   if (SEED) {
     await seed();
   }
 
-  app.listen({ port }, () => console.log(`🚀 Server ready and listening at ==> http://localhost:${port}`));
+  const graphServerInfo = await graph.getServerInfo();
+  const apiServerAddress = NODE_ENV == DEV ? `http://localhost:${PORT}` : "https://api.howl.so/v1";
+
+  app.listen({ port: PORT }, () => {
+    console.log(`🚀 Graph running at => ${graphServerInfo.address} `);
+    console.log(`🚀 Server running at => ${apiServerAddress}`);
+  });
 };
 
-main().catch((error) => console.log("🛑 Error:", error));
+main()
+  .catch((error) => console.log(`💥 Error: ${error}`))
+  .finally(() => graph.close());
