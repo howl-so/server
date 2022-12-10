@@ -1,5 +1,6 @@
 import { DocumentType, prop } from "@typegoose/typegoose";
 import { PopulatedUser, RealPopulatedUser } from "./PopulatedUser";
+import Howler from "../../howlers/models/Howler";
 
 export default class User {
   @prop({ ref: () => User })
@@ -19,6 +20,9 @@ export default class User {
 
   @prop()
   avatarUrl?: string;
+
+  @prop({ ref: () => Howler })
+  howlerIds?: string[];
 
   @prop()
   isLoggedIn?: boolean;

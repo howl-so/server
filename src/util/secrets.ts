@@ -9,3 +9,4 @@ if (fs.existsSync(".env")) {
 
 export const MONGODB_URI = process.env.MONGODB_URI;
 export const KEYS = process.env.SECRET_OR_KEY;
+export const SEED = Boolean(process.env.SEED);

@@ -26,4 +26,3 @@ export class NotFound implements HowlError {
     this.type = this.constructor.name;
   }
 }
-

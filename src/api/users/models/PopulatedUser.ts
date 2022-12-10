@@ -1,5 +1,6 @@
 import { NotFound } from "../../../errors";
 import { UserModel } from "../../../models";
+import Howler from "../../howlers/models/Howler";
 
 export interface PopulatedUser {
   _id: string;
@@ -8,6 +9,7 @@ export interface PopulatedUser {
   username: string;
   googleId: string;
   avatarUrl?: string;
+  howlers?: Howler[];
 }
 
 export class RealPopulatedUser implements PopulatedUser {
@@ -17,6 +19,7 @@ export class RealPopulatedUser implements PopulatedUser {
   readonly username: string;
   readonly avatarUrl?: string;
   readonly googleId: string;
+  howlers?: Howler[];
 
   constructor(id: string, name: string, email: string, username: string, googleId: string, avatarUrl?: string) {
     this._id = id;
@@ -28,7 +31,7 @@ export class RealPopulatedUser implements PopulatedUser {
   }
 
   public async populate(): Promise<PopulatedUser> {
-    const user = await UserModel.findById(this._id).exec();
+    const user = await UserModel.findById(this._id).populate("howlerIds").exec();
     if (!user) throw new NotFound("User");
     return user;
   }
