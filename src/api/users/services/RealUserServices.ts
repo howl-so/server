@@ -1,10 +1,10 @@
 import { DocumentType } from "@typegoose/typegoose";
 import User from "../models/User";
-import UserService from "./UserService";
+import UserServices from "./UserServices";
 import getUser from "./getUser";
 import createUser from "./createUser";
 
-export default class RealUserService implements UserService {
+export default class RealUserServices implements UserServices {
   public async getUser(userId: string): Promise<DocumentType<User> | null> {
     return await getUser(userId);
   }

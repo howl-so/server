@@ -3,12 +3,12 @@ import jwt from "jsonwebtoken";
 import { UserModel } from "../../../models";
 import { KEYS } from "../../../util/secrets";
 import { ContinueWithGoogleSuccess } from "../entities/responses";
-import RealUserService from "../../users/services/RealUserService";
+import RealUserServices from "../../users/services/RealUserServices";
 
 export default async function continueWithGoogle(request: Request, response: Response, _: NextFunction): Promise<Response<ContinueWithGoogleSuccess>> {
   const { email, username, name, googleId, avatarUrl } = request.body;
 
-  const userService = new RealUserService();
+  const userService = new RealUserServices();
 
   let user = await UserModel.findOne({ username });
 

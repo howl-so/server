@@ -1,8 +1,8 @@
-import { UserNotFound } from "../../../errors";
+import { NotFound } from "../../../errors";
 import { UserModel } from "../../../models";
 
 export interface PopulatedUser {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   username: string;
@@ -11,7 +11,7 @@ export interface PopulatedUser {
 }
 
 export class RealPopulatedUser implements PopulatedUser {
-  readonly id: string;
+  readonly _id: string;
   readonly name: string;
   readonly email: string;
   readonly username: string;
@@ -19,7 +19,7 @@ export class RealPopulatedUser implements PopulatedUser {
   readonly googleId: string;
 
   constructor(id: string, name: string, email: string, username: string, googleId: string, avatarUrl?: string) {
-    this.id = id;
+    this._id = id;
     this.name = name;
     this.email = email;
     this.username = username;
@@ -27,8 +27,9 @@ export class RealPopulatedUser implements PopulatedUser {
     this.googleId = googleId;
   }
 
-  public async populate() {
-    const user = await UserModel.findById(this.id).exec();
-    if (!user) throw UserNotFound;
+  public async populate(): Promise<PopulatedUser> {
+    const user = await UserModel.findById(this._id).exec();
+    if (!user) throw new NotFound("User");
+    return user;
   }
 }
