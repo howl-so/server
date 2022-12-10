@@ -2,49 +2,49 @@ import { Types } from "mongoose";
 
 const ObjectId = Types.ObjectId;
 
-export const MATT_ID = "14B357602998F909E8B17AC9";
+export const MATT_ID = "14b357602998f909e8b17ac9";
 export const mattId = new ObjectId(MATT_ID);
 
-export const KELSEY_ID = "0DD1DE8BBDE3B4A1651EAD43";
+export const KELSEY_ID = "0dd1de8bbde3b4a1651ead43";
 export const kelseyId = new ObjectId(KELSEY_ID);
 
-export const TY_ID = "4D0774D719884B24E77DD523";
+export const TY_ID = "4d0774d719884b24e77dd523";
 export const tyId = new ObjectId(TY_ID);
 
-export const RICK_ID = "71A69332B26C2683BB6378D0";
+export const RICK_ID = "71a69332b26c2683bb6378d0";
 export const rickId = new ObjectId(RICK_ID);
 
-export const TAG_ID = "AFE38E7BCE9533D8A4E0A802";
+export const TAG_ID = "afe38e7bce9533d8a4e0a802";
 export const tagId = new ObjectId(TAG_ID);
 
-export const TROT_ID = "CCAEFBE0EB58085D5FE98FEB";
+export const TROT_ID = "ccaefbe0eb58085d5fe98feb";
 export const trotId = new ObjectId(TROT_ID);
 
-export const TUGG_ID = "D1341A5EB64DEAFA12E68398";
+export const TUGG_ID = "d1341a5eb64deafa12e68398";
 export const tuggId = new ObjectId(TUGG_ID);
 
-export const DJANGO_ID = "A945A6AA0C83765C270B0FC8";
+export const DJANGO_ID = "a945a6aa0c83765c270b0fc8";
 export const djangoId = new ObjectId(DJANGO_ID);
 
-export const PAW_ID = "81ACE39E09BDDB769886EADC";
+export const PAW_ID = "81ace39e09bddb769886eadc";
 export const pawId = new ObjectId(PAW_ID);
 
-export const RIFF_ID = "9E46162394CF570418028B93";
+export const RIFF_ID = "9e46162394cf570418028b93";
 export const riffId = new ObjectId(RIFF_ID);
 
-export const SADIE_ID = "E90704181E8FFD52E2C36EAD";
+export const SADIE_ID = "e90704181e8ffd52e2c36ead";
 export const sadieId = new ObjectId(SADIE_ID);
 
-export const MACY_ID = "A77B41AD91184BD9CDCE4F57";
+export const MACY_ID = "a77b41ad91184bd9cdce4f57";
 export const macyId = new ObjectId(MACY_ID);
 
-export const NEPTUNE_ID = "57FBD9845074FE1ECD34BAB7";
+export const NEPTUNE_ID = "57fbd9845074fe1ecd34bab7";
 export const neptuneId = new ObjectId(NEPTUNE_ID);
 
-export const ELLA_ID = "3AED9CE3EFB0834195A86DA9";
+export const ELLA_ID = "3aed9ce3efb0834195a86da9";
 export const ellaId = new ObjectId(ELLA_ID);
 
-export const SPLASH_ID = "9F54A6C385282EA5E0CEC857";
+export const SPLASH_ID = "9f54a6c385282ea5e0cec857";
 export const splashId = new ObjectId(SPLASH_ID);
 
 export const tag = { id: TAG_ID, oid: tagId };
