@@ -1,8 +1,10 @@
 import BatchServices from "./BatchServices";
 import { HowlerModel } from "../../../models";
+import { DocumentType } from "@typegoose/typegoose";
+import Howler from "src/api/howlers/models/Howler";
 
 export default class RealBatchServices implements BatchServices {
-  async getBatch(howlerId: string, limit?: number, afterId?: string): Promise<DocumentType<Howler>[] | null> {
+  async getBatch(_: string, limit?: number, afterId?: string): Promise<DocumentType<Howler>[] | null> {
     const howlers = await HowlerModel.find();
 
     if (limit && afterId) {
