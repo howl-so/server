@@ -1,7 +1,8 @@
 import { Controller, Get, Path, Route, Tags } from "tsoa";
 import Howler from "../models/Howler";
-import RealHowlerServices from "../services/RealHowlerServices";
 import { PopulatedHowler } from "../models/PopulatedHowler";
+import { PopulatedHowlersResponse } from "../models/PopulatedHowlersResponse";
+import RealHowlerServices from "../services/RealHowlerServices";
 
 @Route("howlers")
 @Tags("Howler")
@@ -26,7 +27,7 @@ export class HowlerController extends Controller {
 
   /** Get and populate all howlers */
   @Get()
-  async getPopulatedHowlers(): Promise<PopulatedHowler[] | null> {
+  async getPopulatedHowlers(): Promise<PopulatedHowlersResponse | null> {
     const howlers = await new RealHowlerServices().getHowlers();
     const populatedHowlers: PopulatedHowler[] = [];
 
@@ -34,6 +35,8 @@ export class HowlerController extends Controller {
       populatedHowlers.push(await howler.populate());
     }
 
-    return populatedHowlers;
+    return {
+      value: populatedHowlers
+    };
   }
 }
