@@ -1,5 +1,5 @@
+import { KELSEY_ID, MATT_ID, RICK_ID, TY_ID } from "..";
 import SeedUser from "./SeedUser";
-import { MATT_ID, KELSEY_ID, RICK_ID, TAG_ID } from "..";
 
 const Matt: SeedUser = {
   _id: MATT_ID,
@@ -16,7 +16,7 @@ const Kelsey: SeedUser = {
 };
 
 const Ty: SeedUser = {
-  _id: TAG_ID,
+  _id: TY_ID,
   name: "Ty",
   email: "ty@howl.so",
   username: "ty"

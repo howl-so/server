@@ -8,7 +8,7 @@ export const mattId = new ObjectId(MATT_ID);
 export const KELSEY_ID = "0dd1de8bbde3b4a1651ead43";
 export const kelseyId = new ObjectId(KELSEY_ID);
 
-export const TY_ID = "4d0774d719884b24e77dd523";
+export const TY_ID = "63af6118a95e349ce759934c";
 export const tyId = new ObjectId(TY_ID);
 
 export const RICK_ID = "71a69332b26c2683bb6378d0";
