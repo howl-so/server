@@ -5,6 +5,7 @@ import getHowler from "./getHowler";
 import getHowlers from "./getHowlers";
 import getHowlersByOwnerId from "./getHowlersByOwnerId";
 import HowlerServices from "./HowlerServices";
+import paginate from "./paginate";
 
 export default class RealHowlerServices implements HowlerServices {
   public async getHowler(howlerId: string): Promise<DocumentType<Howler> | null> {
@@ -19,5 +20,8 @@ export default class RealHowlerServices implements HowlerServices {
   }
   public async getHowlersByOwnerId(ownerId: string): Promise<DocumentType<Howler>[] | null> {
     return await getHowlersByOwnerId(ownerId);
+  }
+  public async paginate(howlerId: string, start: number, size: number): Promise<DocumentType<Howler>[]> {
+    return await paginate(howlerId, start, size);
   }
 }

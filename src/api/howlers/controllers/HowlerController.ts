@@ -1,7 +1,6 @@
-import { Controller, Get, Path, Route, Tags } from "tsoa";
+import { Controller, Get, Path, Query, Route, Tags } from "tsoa";
 import Howler from "../models/Howler";
 import { PopulatedHowler } from "../models/PopulatedHowler";
-import { PopulatedHowlersResponse } from "../models/PopulatedHowlersResponse";
 import RealHowlerServices from "../services/RealHowlerServices";
 
 @Route("howlers")
@@ -27,16 +26,21 @@ export class HowlerController extends Controller {
 
   /** Get and populate all howlers */
   @Get()
-  async getPopulatedHowlers(): Promise<PopulatedHowlersResponse | null> {
-    const howlers = await new RealHowlerServices().getHowlers();
+  async getPopulatedHowlers(@Query() howlerId?: string, @Query() start?: number, @Query() size?: number): Promise<PopulatedHowler[] | null> {
+    let howlers;
+
+    if (howlerId && start != null && size != null) {
+      howlers = await new RealHowlerServices().paginate(howlerId, start, size);
+    } else {
+      howlers = await new RealHowlerServices().getHowlers();
+    }
+
     const populatedHowlers: PopulatedHowler[] = [];
 
     for (const howler of howlers) {
       populatedHowlers.push(await howler.populate());
     }
 
-    return {
-      value: populatedHowlers
-    };
+    return populatedHowlers;
   }
 }
