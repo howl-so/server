@@ -1,13 +1,16 @@
+import { DocumentType } from "@typegoose/typegoose";
 import { NextFunction, Request, Response } from "express";
+import User from "src/api/users/models/User";
 import { UnsuccessfulAuth } from "../entities/errors";
 import { ContinueWithGoogleSuccess, SuccessfulAuth } from "../entities/responses";
 import continueWithGoogle from "./continueWithGoogle";
-import validateToken from "./validateToken";
+import { validateToken, validateTokenAndReturnUser } from "./validateToken";
 
 interface AuthService {
   continueWithGoogle(request: Request, response: Response, next: NextFunction): Promise<Response<ContinueWithGoogleSuccess>>;
 
   validateToken(request: Request, response: Response, next: NextFunction): Promise<Response<SuccessfulAuth | UnsuccessfulAuth>>;
+  validateTokenAndReturnUser(token: string): Promise<DocumentType<User> | null>;
 }
 
 export default class RealAuthService implements AuthService {
@@ -17,5 +20,9 @@ export default class RealAuthService implements AuthService {
 
   public async validateToken(request: Request, response: Response, next: NextFunction): Promise<Response<SuccessfulAuth | UnsuccessfulAuth>> {
     return await validateToken(request, response, next);
+  }
+
+  public async validateTokenAndReturnUser(token: string): Promise<DocumentType<User> | null> {
+    return await validateTokenAndReturnUser(token);
   }
 }
