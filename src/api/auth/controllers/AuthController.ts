@@ -1,5 +1,5 @@
 import { PopulatedUser } from "src/api/users/models/PopulatedUser";
-import { Body, Controller, Get, Path, Post, Route, Tags } from "tsoa";
+import { Controller, Get, Path, Route, Tags } from "tsoa";
 import RealAuthService from "../services/AuthService";
 
 @Route("auth")
