@@ -1,6 +1,6 @@
 import { DocumentType, prop } from "@typegoose/typegoose";
-import { PopulatedUser, RealPopulatedUser } from "./PopulatedUser";
 import Howler from "../../howlers/models/Howler";
+import { PopulatedUser, RealPopulatedUser } from "./PopulatedUser";
 
 export default class User {
   @prop({ ref: () => User })
@@ -14,6 +14,9 @@ export default class User {
 
   @prop({ unique: true })
   username!: string;
+
+  @prop()
+  password?: string;
 
   @prop()
   googleId!: string;

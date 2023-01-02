@@ -1,7 +1,9 @@
+import axios from "axios";
+import bcrypt from "bcrypt";
 import { HowlerModel, UserModel } from "../models";
-import seedUsers from "./users/seedUsers";
 import seedHowlers from "./howlers/seedHowlers";
 import { packages } from "./index";
+import seedUsers from "./users/seedUsers";
 
 export default async function seed() {
   await UserModel.deleteMany({});
@@ -13,10 +15,19 @@ export default async function seed() {
   for (const { id, oid, howlers } of packages) {
     const howlerOids = howlers.map((howler) => howler.oid);
     const howlerIds = howlers.map((howler) => howler.id);
-    await UserModel.findByIdAndUpdate(id, { howlerIds: howlerOids });
+    await UserModel.findByIdAndUpdate(id, {
+      password: await bcrypt.hash("PASSWORD", 10),
+      howlerIds: howlerOids
+    });
 
     for (const howlerId of howlerIds) {
-      await HowlerModel.findByIdAndUpdate(howlerId, { ownerIds: [oid] });
+      const howler = await HowlerModel.findByIdAndUpdate(howlerId, { ownerIds: [oid] });
+      if (howler && howler.avatarUrl == null) {
+        const response = await axios.get("https://dog.ceo/api/breeds/image/random");
+        const avatarUrl = response.data.message;
+        howler.avatarUrl = avatarUrl;
+        howler.save();
+      }
     }
   }
 

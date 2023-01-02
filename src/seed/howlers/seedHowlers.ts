@@ -32,50 +32,43 @@ const Paw: SeedHowler = {
 const Riff: SeedHowler = {
   _id: RIFF_ID,
   name: "Riff",
-  username: "riff",
-  avatarUrl: "https://i.imgur.com/UJ6rFC6.jpg"
+  username: "riff"
 };
 
 const Sadie: SeedHowler = {
   _id: SADIE_ID,
   name: "Sadie",
-  username: "sadie",
-  avatarUrl: "https://i.imgur.com/UJ6rFC6.jpg"
+  username: "sadie"
 };
 
 const Macy: SeedHowler = {
   _id: MACY_ID,
   name: "Macy",
-  username: "macy",
-  avatarUrl: "https://i.imgur.com/UJ6rFC6.jpg"
+  username: "macy"
 };
 
 const Neptune: SeedHowler = {
   _id: NEPTUNE_ID,
   name: "Neptune",
-  username: "neptune",
-  avatarUrl: "https://i.imgur.com/UJ6rFC6.jpg"
+  username: "neptune"
 };
 
 const Ella: SeedHowler = {
   _id: ELLA_ID,
   name: "Ella",
-  username: "ella",
-  avatarUrl: "https://i.imgur.com/UJ6rFC6.jpg"
+  username: "ella"
 };
 
 const Splash: SeedHowler = {
   _id: SPLASH_ID,
   name: "Splash",
-  username: "splash",
-  avatarUrl: "https://i.imgur.com/UJ6rFC6.jpg"
+  username: "splash"
 };
 
 const Django: SeedHowler = {
   _id: DJANGO_ID,
   name: "Django",
-  username: "django",
-  avatarUrl: "https://i.imgur.com/UJ6rFC6.jpg"
+  username: "django"
 };
 
 const seedHowlers: SeedHowler[] = [Tag, Trot, Tugg, Paw, Riff, Sadie, Macy, Neptune, Ella, Splash, Django];
