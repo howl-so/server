@@ -2,6 +2,8 @@ import { PopulatedUser } from "src/api/users/models/PopulatedUser";
 
 export abstract class LoginResponse {
   abstract type: LoginResult;
+  abstract user: PopulatedUser | null;
+  abstract token: string | null;
 }
 
 enum LoginResult {
@@ -23,4 +25,6 @@ export class LoginSuccess extends LoginResponse {
 
 export class LoginFailure extends LoginResponse {
   type = LoginResult.FAILURE;
+  user = null;
+  token = null;
 }
