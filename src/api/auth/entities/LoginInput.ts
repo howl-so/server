@@ -22,3 +22,11 @@ export class ContinueWithGoogleInput {
     this.avatarUrl = avatarUrl;
   }
 }
+
+export class ValidateTokenInput {
+  token: string;
+
+  constructor(token: string) {
+    this.token = token;
+  }
+}

@@ -1,19 +1,38 @@
-import { PopulatedUser } from "src/api/users/models/PopulatedUser";
-import { Body, Controller, Get, Path, Post, Route, Tags } from "tsoa";
-import { ContinueWithGoogleInput, LoginInput } from "../entities/LoginInput";
+import { Body, Controller, Post, Route, Tags } from "tsoa";
+import RealHowlerServices from "../../../api/howlers/services/RealHowlerServices";
+import { ContinueWithGoogleInput, LoginInput, ValidateTokenInput } from "../entities/LoginInput";
 import { LoginFailure, LoginResponse, LoginSuccess } from "../entities/LoginResult";
-import { ContinueWithGoogleSuccess } from "../entities/responses";
+import { AuthenticatedHowlUser, AuthenticatedHowlUserHowler, ContinueWithGoogleSuccess } from "../entities/responses";
 import RealAuthService from "../services/AuthService";
 
 @Route("auth")
 @Tags("Auth")
 export class AuthController extends Controller {
   /** Validate token */
-  @Get("{token}")
-  async validateToken(@Path() token: string): Promise<PopulatedUser | null> {
-    if (!token) throw new Error();
-    const user = await new RealAuthService().validateTokenAndReturnUser(token);
-    return (await user?.populate()) ?? null;
+  @Post("{token}")
+  async validateToken(@Body() input: ValidateTokenInput): Promise<AuthenticatedHowlUser | null> {
+    if (!input.token) throw new Error();
+
+    const authService = new RealAuthService();
+    const howlerServices = new RealHowlerServices();
+
+    const user = await authService.validateTokenAndReturnUser(input.token);
+    if (!user) return null;
+
+    const howlers: AuthenticatedHowlUserHowler[] = [];
+
+    const howlerIds = user.howlerIds ?? [];
+
+    for (const howlerId of howlerIds) {
+      const howler = await howlerServices.getHowler(howlerId);
+
+      if (howler) {
+        const authenticatedHowlUserHowler = new AuthenticatedHowlUserHowler(howler._id, howler.name, howler.ownerIds, howler.avatarUrl);
+        howlers.push(authenticatedHowlUserHowler);
+      }
+    }
+
+    return new AuthenticatedHowlUser(user._id, user.name, user.email, user.username, howlers, user.avatarUrl);
   }
 
   /** Log in */
