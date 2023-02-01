@@ -9,7 +9,7 @@ import RealAuthService from "../services/AuthService";
 @Tags("Auth")
 export class AuthController extends Controller {
   /** Validate token */
-  @Post("{token}")
+  @Post("tokens")
   async validateToken(@Body() input: ValidateTokenInput): Promise<AuthenticatedHowlUser | null> {
     if (!input.token) throw new Error();
 
