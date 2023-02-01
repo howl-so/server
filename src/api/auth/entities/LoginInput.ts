@@ -11,10 +11,10 @@ export class ContinueWithGoogleInput {
   email: string;
   username: string;
   name: string;
-  googleId?: string;
-  avatarUrl?: string;
+  googleId: string | null;
+  avatarUrl: string | null;
 
-  constructor(email: string, username: string, name: string, googleId?: string, avatarUrl?: string) {
+  constructor(email: string, username: string, name: string, googleId: string | null, avatarUrl: string | null) {
     this.email = email;
     this.username = username;
     this.name = name;
