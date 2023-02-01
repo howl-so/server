@@ -1,12 +1,12 @@
-import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../../../models";
 import { KEYS } from "../../../util/secrets";
-import { ContinueWithGoogleSuccess } from "../entities/responses";
 import RealUserServices from "../../users/services/RealUserServices";
+import { ContinueWithGoogleInput } from "../entities/LoginInput";
+import { ContinueWithGoogleSuccess } from "../entities/responses";
 
-export default async function continueWithGoogle(request: Request, response: Response, _: NextFunction): Promise<Response<ContinueWithGoogleSuccess>> {
-  const { email, username, name, googleId, avatarUrl } = request.body;
+export default async function continueWithGoogle(input: ContinueWithGoogleInput): Promise<ContinueWithGoogleSuccess> {
+  const { email, username, name, googleId, avatarUrl } = input;
 
   const userService = new RealUserServices();
 
@@ -20,5 +20,5 @@ export default async function continueWithGoogle(request: Request, response: Res
   await user.save();
 
   const token = jwt.sign({ userId: user._id }, KEYS!);
-  return response.json(new ContinueWithGoogleSuccess(user, token));
+  return new ContinueWithGoogleSuccess(user, token);
 }

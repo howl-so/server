@@ -1,7 +1,8 @@
 import { PopulatedUser } from "src/api/users/models/PopulatedUser";
 import { Body, Controller, Get, Path, Post, Route, Tags } from "tsoa";
-import { LoginInput } from "../entities/LoginInput";
+import { ContinueWithGoogleInput, LoginInput } from "../entities/LoginInput";
 import { LoginFailure, LoginResponse, LoginSuccess } from "../entities/LoginResult";
+import { ContinueWithGoogleSuccess } from "../entities/responses";
 import RealAuthService from "../services/AuthService";
 
 @Route("auth")
@@ -28,5 +29,12 @@ export class AuthController extends Controller {
     } else {
       return new LoginFailure();
     }
+  }
+
+  /** Continue with Google */
+  @Post("google")
+  async google(@Body() input: ContinueWithGoogleInput): Promise<ContinueWithGoogleSuccess> {
+    const authService = new RealAuthService();
+    return await authService.continueWithGoogle(input);
   }
 }

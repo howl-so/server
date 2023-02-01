@@ -4,12 +4,13 @@ import jwt from "jsonwebtoken";
 import User from "src/api/users/models/User";
 import { KEYS } from "../../../util/secrets";
 import { UnsuccessfulAuth } from "../entities/errors";
+import { ContinueWithGoogleInput } from "../entities/LoginInput";
 import { ContinueWithGoogleSuccess, SuccessfulAuth } from "../entities/responses";
 import continueWithGoogle from "./continueWithGoogle";
 import { logIn } from "./logIn";
 import { validateToken, validateTokenAndReturnUser } from "./validateToken";
 interface AuthService {
-  continueWithGoogle(request: Request, response: Response, next: NextFunction): Promise<Response<ContinueWithGoogleSuccess>>;
+  continueWithGoogle(input: ContinueWithGoogleInput): Promise<ContinueWithGoogleSuccess>;
 
   validateToken(request: Request, response: Response, next: NextFunction): Promise<Response<SuccessfulAuth | UnsuccessfulAuth>>;
   validateTokenAndReturnUser(token: string): Promise<DocumentType<User> | null>;
@@ -18,8 +19,8 @@ interface AuthService {
 }
 
 export default class RealAuthService implements AuthService {
-  public async continueWithGoogle(request: Request, response: Response, next: NextFunction): Promise<Response<ContinueWithGoogleSuccess>> {
-    return await continueWithGoogle(request, response, next);
+  public async continueWithGoogle(input: ContinueWithGoogleInput): Promise<ContinueWithGoogleSuccess> {
+    return await continueWithGoogle(input);
   }
 
   public async validateToken(request: Request, response: Response, next: NextFunction): Promise<Response<SuccessfulAuth | UnsuccessfulAuth>> {
